@@ -2,4 +2,5 @@ name = "Solution"
 grammar = "xml"
 path_suffixes = ["sln"]
 block_comment = ["<!-- ", " -->"]
+autoclose_before = "<"
 brackets = [{ start = "<", end = ">", close = true, newline = true }]

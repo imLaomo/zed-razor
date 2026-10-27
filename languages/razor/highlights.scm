@@ -1,4 +1,4 @@
-; HTML Elements
+; HTML — keep element names, punctuation, and Razor attributes visually distinct.
 
 (element "<" . (_) @tag)
 (element "</" . (_) @tag)
@@ -11,7 +11,8 @@
 (element "\"" @string)
 (element "=" @punctuation.delimiter)
 
-; Razor Directives
+; Razor directives. The more specific captures retain a useful fallback in
+; themes that only define the base `keyword` scope.
 
 [
   "at_page"
@@ -29,47 +30,66 @@
   "at_block"
   "at_at_escape"
   "at_colon_transition"
-] @keyword
+  "at_addtaghelper"
+  "at_removetaghelper"
+  "at_taghelperprefix"
+] @keyword.directive
 
 [
   "at_lock"
   "at_section"
-] @keyword
+] @keyword.directive
 
 [
   "at_if"
   "at_switch"
-] @keyword
+] @keyword.control
 
 [
   "at_for"
   "at_foreach"
   "at_while"
   "at_do"
-] @keyword
+] @keyword.control
 
 [
   "at_try"
   "catch"
   "finally"
-] @keyword
+] @keyword.control
 
 [
   "at_implicit"
   "at_explicit"
-] @keyword
+] @punctuation.special
 
-"at_await" @keyword
-
-(razor_rendermode) @constant
+(razor_rendermode) @constant.builtin
 (razor_attribute_name) @attribute
 (razor_attribute_modifier) @attribute
+(razor_escape) @string.escape
 (razor_comment) @comment
 (html_comment) @comment
 
+; Razor directive arguments
+(razor_model_directive name: (_) @type)
+(razor_implements_directive name: (_) @type)
+(razor_layout_directive name: (_) @type)
+(razor_inherits_directive name: (_) @type)
+(razor_typeparam_directive name: (_) @type)
+(razor_namespace_directive (qualified_name) @type)
+(razor_section (identifier) @function)
+
+[
+  (razor_addtaghelper_directive (string_literal) @string.special)
+  (razor_removetaghelper_directive (string_literal) @string.special)
+  (razor_taghelperprefix_directive (string_literal) @string.special)
+]
+
 ; C#
 
-(identifier) @variable
+; Keep ordinary identifiers at the editor foreground. Coloring every identifier
+; makes Razor templates visually noisy; declarations, calls, properties, and
+; types below remain the navigation anchors.
 
 (method_declaration name: (identifier) @function)
 (_ function: (identifier) @function)
@@ -261,4 +281,9 @@
 
 (type_parameter_constraints_clause (identifier) @property.definition)
 
+(invocation_expression function: (identifier) @function)
 (invocation_expression (member_access_expression name: (identifier) @function))
+
+; Named declarations receive color, while their usages stay deliberately quiet.
+(property_declaration name: (identifier) @property)
+(variable_declarator name: (identifier) @variable)

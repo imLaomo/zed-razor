@@ -1,12 +1,12 @@
 # Razor Pages — Zed Extension
 
-ASP.NET Razor Pages and Blazor support for [Zed](https://zed.dev), providing syntax highlighting for `.cshtml` and `.razor` files with full C# integration. Also includes XML-based highlighting for .NET project files (`.csproj`, `.slnx`, `.sln`).
+ASP.NET Razor Pages and Blazor support for [Zed](https://zed.dev), providing syntax highlighting for `.cshtml` and `.razor` files with full C# integration. Also includes XML-based highlighting for .NET project files (`.csproj`, `.slnx`, `.sln`). The extension manifest follows the current Zed extension schema and grammar format.
 
 ## Features
 
 - **Razor syntax highlighting** — all Razor directives (`@page`, `@model`, `@using`, `@inject`, `@if`, `@foreach`, `@section`, `@code`, etc.)
 - **Full C# highlighting** — classes, methods, generics, LINQ, string interpolation, pattern matching, and more
-- **HTML highlighting** — elements, attributes, and embedded content via language injection
+- **HTML, CSS, and JavaScript highlighting** — HTML elements and attributes, plus nested `<style>`, `<script>`, inline `style`, and `on*` content through recursive language injection
 - **Razor comments** — `@* ... *@` block comments and standard `// ...` line comments
 - **Smart editing** — auto-closing brackets, auto-indentation for Razor control structures, and bracket matching
 - **Outline support** — navigate `@section`, `@code` blocks, methods, classes, and HTML elements in the symbol outline
